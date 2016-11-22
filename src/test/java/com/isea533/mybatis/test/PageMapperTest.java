@@ -26,13 +26,21 @@ package com.isea533.mybatis.test;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.isea533.mybatis.common.enumState.UserProfileType;
 import com.isea533.mybatis.mapper.CountryMapper;
 import com.isea533.mybatis.model.Country;
+import com.isea533.mybatis.model.User;
+import com.isea533.mybatis.model.UserProfile;
+import com.isea533.mybatis.service.UserProfileService;
+import com.isea533.mybatis.service.UserService;
+import com.isea533.mybatis.service.UserUserProfileService;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,6 +53,18 @@ public class PageMapperTest extends BasicTest {
 
     @Autowired
     private SqlSession sqlSession;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private UserUserProfileService userUserProfileService;
+
+    @Autowired
+    private UserProfileService userProfileService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Test
     public void test(){
@@ -59,5 +79,33 @@ public class PageMapperTest extends BasicTest {
         countries = countryMapper.selectByExample(example);
         pageInfo = new PageInfo<Country>(countries);
         System.out.println(pageInfo.getTotal());
+    }
+
+    @Test
+    public void testUser(){
+        User user2 = userService.selectByUserName("meng");
+
+
+        String[] names = {"meng","admin","dba"};
+
+        /*for(int i = 0;i<3;i++) {
+            User user = new User();
+            user.setEmail("xx.com");
+            user.setPassword("123456");
+            user.setUserName(names[i]);
+            userService.save(user);
+        }
+
+
+        for(UserProfileType type : UserProfileType.values()){
+            UserProfile userProfile = new UserProfile();
+            userProfile.setType(type.getUserProfileType());
+            userProfileService.save(userProfile);
+        }*/
+        List<UserProfile> lst = userUserProfileService.getUserProfileList(2);
+        System.out.println(lst);
+
+        for(int i=0;i<3;i++)
+            System.out.println(passwordEncoder.encode("123456"));
     }
 }

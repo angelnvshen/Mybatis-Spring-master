@@ -8,6 +8,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * Created by liuzh on 2015/3/7.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:spring-mybatis.xml")
+@ContextConfiguration({"classpath*:spring-mybatis.xml","classpath*:spring-mybatis.xml","classpath*:spring-security.xml"})
 public class BasicTest {
 }

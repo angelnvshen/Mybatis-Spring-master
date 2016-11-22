@@ -19,5 +19,13 @@ CREATE TABLE `user_user_profile` (
   `USER_PROFILE_ID` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `persistent_logins` (
+  `username` varchar(64) DEFAULT NULL,
+  `series` varchar(64) NOT NULL,
+  `token` varchar(64) DEFAULT NULL,
+  `last_used` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`series`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 

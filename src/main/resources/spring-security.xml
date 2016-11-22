@@ -15,12 +15,18 @@
                     authentication-failure-url="/Access_Denied"
                 />
         <csrf />
+        <remember-me  remember-me-parameter="remember-me"  remember-me-cookie="remember-me"  token-validity-seconds="86400"  data-source-ref="dataSource" />
     </http>
 
     <!-- db authentication-->
     <authentication-manager>
-        <authentication-provider user-service-ref="customUserDetailsService" />
+        <authentication-provider user-service-ref="customUserDetailsService" >
+            <password-encoder ref="bcryptEncoder" />
+        </authentication-provider>
     </authentication-manager>
 
+
+
+    <b:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
     <b:bean id="customUserDetailsService" class="com.isea533.mybatis.springsecurity.configuration.CustomUserDetailsService" />
 </b:beans>

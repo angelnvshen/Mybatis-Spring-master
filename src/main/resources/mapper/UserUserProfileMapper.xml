@@ -9,4 +9,12 @@
     <result column="USER_ID" property="userId" jdbcType="INTEGER" />
     <result column="USER_PROFILE_ID" property="userProfileId" jdbcType="INTEGER" />
   </resultMap>
+
+    <select id="getUserProfileList" resultMap="com.isea533.mybatis.mapper.UserProfileMapper.BaseResultMap">
+        SELECT t_u.*
+          FROM user_user_profile t_uu
+        LEFT JOIN user_profile t_u on t_uu.USER_PROFILE_ID = t_u.ID
+        where 1=1 and t_uu.user_id = #{userId}
+    </select>
+
 </mapper>

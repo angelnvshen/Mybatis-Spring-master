@@ -4,11 +4,15 @@
          xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
     <http auto-config="false">
-        <intercept-url pattern="/login" access="isAnonymous()" />
-        <intercept-url pattern="/" access="hasRole('USER')" />
-        <intercept-url pattern="/home" access="hasRole('USER')"/>
+        <!--<intercept-url pattern="/login" access="isAnonymous()" />-->
+        <!--<intercept-url pattern="/" access="hasRole('USER')" />
+        <intercept-url pattern="/home" access="hasRole('USER')"/>-->
+        <intercept-url pattern="/login" access="permitAll" />
+        <intercept-url pattern="/" access="permitAll" />
+        <intercept-url pattern="/home" access="permitAll"/>
         <intercept-url pattern="/admin**" access="hasRole('ADMIN')"/>
         <intercept-url pattern="/dba**" access="hasRole('ADMIN') and hasRole('DBA')"/>
+        <!--<intercept-url pattern="/**" access="isAuthenticated()"/>-->
         <form-login login-page="/login"
                     username-parameter="ssoId"
                     password-parameter="password"
@@ -17,6 +21,8 @@
         <csrf />
         <remember-me  remember-me-parameter="remember-me"  remember-me-cookie="remember-me"  token-validity-seconds="86400"  data-source-ref="dataSource" />
     </http>
+
+    <global-method-security pre-post-annotations="enabled"/>
 
     <!-- db authentication-->
     <authentication-manager>
